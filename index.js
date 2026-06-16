@@ -6,11 +6,13 @@ const { router: authRouter } = require('./auth');
 const protect = require('./middleware');
 
 const app = express();
+const cors = require('cors');
+app.use(cors());
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-// ── Connect to MongoDB ─────────────────────────
+
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('✅ Connected to MongoDB'))
   .catch(err => console.error('❌ MongoDB error:', err));
@@ -92,4 +94,4 @@ app.listen(PORT, () => {
   console.log(`✅ Server running on http://localhost:${PORT}`);
   console.log(`🔐 Auth routes: POST /auth/register  |  POST /auth/login`);
   console.log(`📋 Note routes: GET POST PUT DELETE /notes (all protected)`);
-});
+}); 
